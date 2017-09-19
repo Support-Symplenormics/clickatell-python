@@ -5,9 +5,6 @@ You can see our other libraries and more documentation at the [Clickatell APIs a
 
 ------------------------------------
 
-
-Master: [![Build Status](https://secure.travis-ci.org/arcturial/clickatell-python.png?branch=master)](http://travis-ci.org/arcturial/clickatell-python)
-
 This library allows easy access to connecting the [Clickatell's](http://www.clickatell.com) different messenging API's.
 
 1. Installation
@@ -70,16 +67,6 @@ The available calls are defined in the `clickatell.Transport` interface.
 ``` python
 
 def sendMessage(self, to, message, extra={})
-
-def getBalance(self)
-
-def stopMessage(self, apiMsgId)
-
-def queryMessage(self, apiMsgId)
-
-def routeCoverage(self, msisdn)
-
-def getMessageCharge(self, apiMsgId)
 
 ```
 
