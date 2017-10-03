@@ -6,18 +6,15 @@ class Http(Transport):
     Provides access to the Clickatell HTTP API
     """
 
-    def __init__(self, username, password, apiId):
+    def __init__(self, apiKey):
         """
         Construct a new API instance with the authentication
         details and the API ID.
 
-        :param str username:    The API username
-        :param str password:    The API password
-        :param int apiId:       The API ID
+        :param int apiKey:       The API ID
         """
-        self.username = username
-        self.password = password
-        self.apiId = apiId
+      
+        self.apiKey = apiKey
         Transport.__init__(self)
         pass
 
@@ -25,7 +22,7 @@ class Http(Transport):
         """
         Append the user authentication details to every incoming request
         """
-        data = self.merge(data, {'user': self.username, 'password': self.password, 'api_id': self.apiId})
+        data = self.merge(data, {'apiKey': self.apiKey})
         return Transport.request(self, action, data, headers, method)
 
     def sendMessage(self, to, message, extra={}):
@@ -35,11 +32,11 @@ class Http(Transport):
         provided by the user.
         """
         to = to if isinstance(to, list) else [to]
-        data = {'to': to, 'text': message}
-        data = self.merge(data, {'callback': 7, 'mo': 1}, extra)
+        data = {'to': to, 'content': message}
+        data = self.merge(data, extra)
 
         try:
-            content = self.parseLegacy(self.request('http/sendmsg', data));
+            content = self.parseLegacy(self.request('http/send', data));
         except ClickatellError as e:
             # The error that gets catched here will only be raised if the request was for
             # one number only. We can safely assume we are only dealing with a single response
@@ -65,63 +62,3 @@ class Http(Transport):
             });
 
         return result
-
-    def getBalance(self):
-        """
-        See parent method for documentation
-        """
-        content = self.parseLegacy(self.request('http/getbalance', {}));
-        return {'balance': float(content['Credit'])}
-
-    def stopMessage(self, apiMsgId):
-        """
-        See parent method for documentation
-        """
-        content =  self.parseLegacy(self.request('http/delmsg', {'apimsgid': apiMsgId}))
-
-        return {
-            'id': content['ID'],
-            'status': content['Status'],
-            'description': self.getStatus(content['Status'])
-        }
-
-    def queryMessage(self, apiMsgId):
-        """
-        See parent method for documentation
-        """
-        return self.getMessageCharge(apiMsgId)
-
-    def getMessageCharge(self, apiMsgId):
-        """
-        See parent method for documentation
-        """
-        content = self.parseLegacy(self.request('http/getmsgcharge', {'apimsgid': apiMsgId}))
-
-        return {
-            'id': apiMsgId,
-            'status': content['status'],
-            'description': self.getStatus(content['status']),
-            'charge': float(content['charge'])
-        }
-
-    def routeCoverage(self, msisdn):
-        """
-        If the route coverage lookup encounters an error, we will treat it as "not covered".
-        """
-        try:
-            content = self.parseLegacy(self.request('utils/routeCoverage', {'msisdn': msisdn}))
-
-            return {
-                'routable': True,
-                'destination': msisdn,
-                'charge': float(content['Charge'])
-            }
-        except Exception:
-            # If we encounter any error, we will treat it like it's "not covered"
-            # TODO perhaps catch different types of exceptions so we can isolate certain global exceptions
-            # like authentication
-            return {
-                'routable': False,
-                'destination': msisdn,
-                'charge': 0
-            }
