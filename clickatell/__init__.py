@@ -10,7 +10,7 @@ class Transport:
     the supported API methods
     """
 
-    endpoint = "api.clickatell.com"
+    endpoint = "platform.clickatell.com"
     status = {
         "001": "The message ID is incorrect or reporting is delayed.",
         "002": "The message could not be delivered and has been queued for attempted redelivery.",
@@ -122,18 +122,6 @@ class Transport:
         resp, content = http.request(url, method, headers=headers, body=json.dumps(data))
         return self.merge(resp, {'body': content})
 
-    def getStatus(self, status):
-        """
-        Return the message status from the local diagnostic array. If the entry
-        is not found, we will return False
-
-        :return Return the diagnostic string or False
-        """
-        try:
-            return self.status[status]
-        except Exception:
-            return False
-
     def sendMessage(self, to, message, extra={}):
         """
         Send a message.
@@ -141,59 +129,6 @@ class Transport:
         :param list     to:         The number you want to send to (list of strings, or one string)
         :param string   message:    The message you want to send
         :param dict     extra:      Any extra parameters (see Clickatell documentation)
-
-        :return dict
-        :raises NotImplementedError
-        """
-        raise NotImplementedError()
-
-    def getBalance(self):
-        """
-        Retrieve the user balance
-
-        :return dict
-        :raises NotImplementedError
-        """
-        raise NotImplementedError()
-
-    def stopMessage(self, apiMsgId):
-        """
-        Retrieve the user balance
-
-        :param str apiMsgId: The API message ID
-
-        :return dict
-        :raises NotImplementedError
-        """
-        raise NotImplementedError()
-
-    def queryMessage(self, apiMsgId):
-        """
-        Query a message status. Alias for getMessageCharge()
-
-        :param str apiMsgId: The API message ID
-
-        :return dict
-        :raises NotImplementedError
-        """
-        raise NotImplementedError()
-
-    def routeCoverage(self, msisdn):
-        """
-        Query coverage for a specific number
-
-        :param str msisdn: The number to check coverage
-
-        :return dict
-        :raises NotImplementedError
-        """
-        raise NotImplementedError()
-
-    def getMessageCharge(self, apiMsgId):
-        """
-        Query coverage for a specific number
-
-        :param str apiMsgId: The API message ID
 
         :return dict
         :raises NotImplementedError
