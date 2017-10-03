@@ -13,7 +13,6 @@ class Http(Transport):
 
         :param int apiKey:       The API ID
         """
-      
         self.apiKey = apiKey
         Transport.__init__(self)
         pass
@@ -36,7 +35,7 @@ class Http(Transport):
         data = self.merge(data, extra)
 
         try:
-            content = self.parseLegacy(self.request('http/send', data));
+            content = self.parseLegacy(self.request('messages/http/send', data));
         except ClickatellError as e:
             # The error that gets catched here will only be raised if the request was for
             # one number only. We can safely assume we are only dealing with a single response
@@ -53,12 +52,12 @@ class Http(Transport):
         # per message. In the case of global failures (like authentication) all messages will contain
         # the specific error as part of the response body.
         for entry in content:
-            entry = self.merge({'ID': False, 'To': data['to'][0], 'error': False, 'errorCode': False}, entry)
+            # entry = self.merge({'ID': False, 'To': data['to'][0], 'error': False, 'errorCode': False}, entry)
             result.append({
-                'id': entry['ID'],
-                'destination': entry['To'],
-                'error': entry['error'],
-                'errorCode': entry['errorCode']
+                'apiMessageId': entry['apiMessageId'],
+                'destination': entry['to'],
+                'accepted': entry['accepted'],
+                'error': entry['error']
             });
 
         return result

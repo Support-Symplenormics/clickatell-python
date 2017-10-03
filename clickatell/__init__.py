@@ -45,6 +45,7 @@ class Transport:
 
         :return Returns a dictionary or a list (list for multiple responses)
         """
+        print response
         lines = response['body'].strip('\n').split('\n')
         result = []
 
@@ -56,7 +57,7 @@ class Transport:
                 row[match[0]] = match[1].strip()
 
             try:
-                error = row['ERR'].split(',')
+                error = row['error'].split(',')
             except KeyError:
                 pass
             else:
@@ -101,7 +102,6 @@ class Transport:
         body = urllib.urlencode(data)
         url = 'https://' + self.endpoint + '/' + action
         url = (url + '?' + body) if (method == 'GET') else url
-
         resp, content = http.request(url, method, headers=headers, body=json.dumps(data))
         return self.merge(resp, {'body': content})
 
