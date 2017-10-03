@@ -28,7 +28,7 @@ The library currently supports the `Http` and `Rest` protocols.
 ``` python
 from clickatell.http import Http
 
-clickatell = Http(username, password, apiID)
+clickatell = Http(apiKey)
 response = clickatell.sendMessage(['1111111111'], "My Message")
 
 for entry in response:
@@ -44,7 +44,7 @@ for entry in response:
 ``` python
 from clickatell.rest import Rest
 
-clickatell = Rest(token);
+clickatell = Rest(apiKey);
 response = clickatell.sendMessage(['1111111111'], "My Message")
 
 for entry in response:
