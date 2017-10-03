@@ -38,17 +38,16 @@ class Rest(Transport):
         data = {'to': to, 'content': message}
         data = self.merge(data, extra)
 
-        content = self.parseRest(self.request('rest/message', data, {}, 'POST'));
+        content = self.parseRest(self.request('messages', data, {}, 'POST'));
         result = []
 
         # Messages in the REST response will contain errors on the message entry itself.
-        for entry in content['message']:
-            entry = self.merge({'apiMessageId': False, 'to': data['to'][0], 'error': False, 'errorCode': False}, entry)
+        for entry in content:
             result.append({
-                'id': entry['apiMessageId'].encode('utf-8'),
+                'apiMessageId': entry['apiMessageId'].encode('utf-8'),
                 'destination': entry['to'].encode('utf-8'),
-                'error': entry['error']['description'].encode('utf-8') if entry['error'] != False else False,
-                'errorCode': entry['error']['code'].encode('utf-8') if entry['error'] != False else False
+                'error': entry['error'].encode('utf-8') if entry['error'] != None else None,
+                'accepted': entry['accepted']
             });
 
         return result

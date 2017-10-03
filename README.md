@@ -32,11 +32,11 @@ clickatell = Http(apiKey)
 response = clickatell.sendMessage(['1111111111'], "My Message")
 
 for entry in response:
-    print(entry['id'])
-    # entry['id']
-    # entry['destination']
-    # entry['error']
-    # entry['errorCode']
+    print entry
+    #print entry['apiMessageId']
+    #print entry['destination']
+    #print entry['accepted']
+    #print entry['error']
 ```
 
 ### REST API
@@ -48,11 +48,11 @@ clickatell = Rest(apiKey);
 response = clickatell.sendMessage(['1111111111'], "My Message")
 
 for entry in response:
-    print(entry['id'])
-    # entry['id']
-    # entry['destination']
-    # entry['error']
-    # entry['errorCode']
+    print entry
+    #print entry['apiMessageId']
+    #print entry['destination']
+    #print entry['accepted']
+    #print entry['error']
 ```
 
 ### Sending to multiple numbers

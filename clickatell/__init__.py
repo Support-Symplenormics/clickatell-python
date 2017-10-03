@@ -11,28 +11,13 @@ class Transport:
     """
 
     endpoint = "platform.clickatell.com"
-    status = {
-        "001": "The message ID is incorrect or reporting is delayed.",
-        "002": "The message could not be delivered and has been queued for attempted redelivery.",
-        "003": "Delivered to the upstream gateway or network (delivered to the recipient).",
-        "004": "Confirmation of receipt on the handset of the recipient.",
-        "005": "There was an error with the message, probably caused by the content of the message itself.",
-        "006": "The message was terminated by a user (stop message command) or by our staff.",
-        "007": "An error occurred delivering the message to the handset. 008 0x008 OK Message received by gateway.",
-        "009": "The routing gateway or network has had an error routing the message.",
-        "010": "Message has expired before we were able to deliver it to the upstream gateway. No charge applies.",
-        "011": "Message has been queued at the gateway for delivery at a later time (delayed delivery).",
-        "012": "The message cannot be delivered due to a lack of funds in your account. Please re-purchase credits.",
-        "014": "Maximum MT limit exceeded The allowable amount for MT messaging has been exceeded."
-    }
 
-    def __init__(self, secure=False):
+    def __init__(self):
         """
         Construct a new transportation instance.
 
         :param boolean secure: Should we try and use a secure connection
         """
-        self.secure = secure
         pass
 
     def merge(self, *args):
@@ -93,15 +78,13 @@ class Transport:
         Parse a REST response. If the response contains an error field, we will
         raise it as an exception.
         """
+
         body = json.loads(response['body'])
 
-        try:
-            error = body['error']['description']
-            code = body['error']['code']
-        except Exception:
-            return body['data']
+        if not body['error']:
+            return body['messages']       
         else:
-            raise ClickatellError(error, code);
+            raise ClickatellError(body['error'], 400);
 
     def request(self, action, data={}, headers={}, method='GET'):
         """
@@ -116,9 +99,9 @@ class Transport:
         """
         http = httplib2.Http()
         body = urllib.urlencode(data)
-        url = ('https' if self.secure else 'http') + '://' + self.endpoint
-        url = url + '/' + action
+        url = 'https://' + self.endpoint + '/' + action
         url = (url + '?' + body) if (method == 'GET') else url
+
         resp, content = http.request(url, method, headers=headers, body=json.dumps(data))
         return self.merge(resp, {'body': content})
 
