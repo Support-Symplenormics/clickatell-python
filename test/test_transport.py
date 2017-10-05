@@ -1,6 +1,5 @@
 import unittest
 from clickatell import Transport
-from clickatell.exception import ClickatellError
 import json
 
 class TransportTest(unittest.TestCase):

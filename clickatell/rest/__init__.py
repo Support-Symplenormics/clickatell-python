@@ -1,5 +1,4 @@
 from clickatell import Transport
-from ..exception import ClickatellError
 
 class Rest(Transport):
     """
@@ -38,16 +37,6 @@ class Rest(Transport):
         data = {'to': to, 'content': message}
         data = self.merge(data, extra)
 
-        content = self.parseRest(self.request('messages', data, {}, 'POST'));
-        result = []
+        content = self.parseResponse(self.request('messages', data, {}, 'POST'));
 
-        # Messages in the REST response will contain errors on the message entry itself.
-        for entry in content:
-            result.append({
-                'apiMessageId': entry['apiMessageId'].encode('utf-8'),
-                'destination': entry['to'].encode('utf-8'),
-                'error': entry['error'].encode('utf-8') if entry['error'] != None else None,
-                'accepted': entry['accepted']
-            });
-
-        return result
+        return content

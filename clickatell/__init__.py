@@ -2,7 +2,6 @@ import httplib2
 import urllib
 import json
 import re
-from .exception import ClickatellError
 
 class Transport:
     """
@@ -35,57 +34,16 @@ class Transport:
 
         return dict(values)
 
-    def parseLegacy(self, response):
+    def parseResponse(self, response):
         """
-        Parse a legacy response and try and catch any errors. If we have multiple
-        responses we wont catch any exceptions, we will return the errors
-        row by row
-
-        :param dict response: The response string returned from request()
-
-        :return Returns a dictionary or a list (list for multiple responses)
+        Parse the response from json.
+        Remapping error code and messages to be a level higher
         """
-        print response
-        lines = response['body'].strip('\n').split('\n')
-        result = []
-
-        for line in lines:
-            matches = re.findall('([A-Za-z]+):((.(?![A-Za-z]+:))*)', line)
-            row = {}
-
-            for match in matches:
-                row[match[0]] = match[1].strip()
-
-            try:
-                error = row['error'].split(',')
-            except KeyError:
-                pass
-            else:
-                row['code'] = error[0] if len(error) == 2 else 0
-                row['error'] = error[1].strip() if len(error) == 2 else error[0]
-                del row['ERR']
-
-                # If this response is a single row response, then we will throw
-                # an exception to alert the user of any failures.
-                if (len(lines) == 1):
-                    raise ClickatellError(row['error'], row['code'])
-            finally:
-                result.append(row)
-
-        return result if len(result) > 1 else result[0]
-
-    def parseRest(self, response):
-        """
-        Parse a REST response. If the response contains an error field, we will
-        raise it as an exception.
-        """
-
-        body = json.loads(response['body'])
-
-        if not body['error']:
-            return body['messages']       
-        else:
-            raise ClickatellError(body['error'], 400);
+        response['body'] = json.loads(response['body'])
+        response['messages'] = response['body']['messages']
+        response['error'] = response['body']['error']
+        del response['body']
+        return response
 
     def request(self, action, data={}, headers={}, method='GET'):
         """
