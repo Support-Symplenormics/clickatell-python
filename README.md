@@ -29,12 +29,14 @@ The library currently supports the `Http` and `Rest` protocols.
 from clickatell.http import Http
 
 clickatell = Http(apiKey)
-response = clickatell.sendMessage(['1111111111'], "My Message")
+response = clickatell.sendMessage(['1111111111'], "My Message rest")
 
-for entry in response:
-    print entry
+print response #Returns the headers with all the messages
+
+for entry in response['messages']:
+    print entry #Returns all the message details per message
     #print entry['apiMessageId']
-    #print entry['destination']
+    #print entry['to']
     #print entry['accepted']
     #print entry['error']
 ```
@@ -44,13 +46,15 @@ for entry in response:
 ``` python
 from clickatell.rest import Rest
 
-clickatell = Rest(apiKey);
-response = clickatell.sendMessage(['1111111111'], "My Message")
+clickatell = Rest(apiKey)
+response = clickatell.sendMessage(['1111111111'], "My Message rest")
 
-for entry in response:
-    print entry
+print response #Returns the headers with all the messages
+
+for entry in response['messages']:
+    print entry #Returns all the message details per message
     #print entry['apiMessageId']
-    #print entry['destination']
+    #print entry['to']
     #print entry['accepted']
     #print entry['error']
 ```
@@ -58,6 +62,8 @@ for entry in response:
 ### Sending to multiple numbers
 
 The `sendMessage` call `to` parameter can take an array of numbers. If you specify only a single number like `clickatell.sendMessage(1111111111, "Message")` the library will automatically convert it to an array for your convenience.
+
+To send to multiple numbers, just pass a list of numbers like `clickatell.sendMessage([1111111111,2222222222], "Message")`
 
 3. Supported API calls
 ------------------
