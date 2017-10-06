@@ -81,3 +81,46 @@ def sendMessage(self, to, message, extra={})
 
 For usability purposes the `sendMessage` call focuses on the recipients and the content. In order to specify and of the additional parameters defined
 in the [Clickatell document](http://www.clickatell.com), you can use the `extra` parameter and pass them as a dictionary.
+
+5. Receiving and consuming the status callback
+--------------------------------------
+
+The following will be returned from the callback in two different sets:
+
+DELIVERED_TO_GATEWAY :
+* integrationName
+* messageId
+* requestId
+* clientMessageId
+* to
+* from
+* statusCode
+* status
+* statusDescription
+* timestamp
+
+RECEIVED_BY_RECIPIENT :
+* integrationName
+* messageId
+* requestId
+* clientMessageId
+* to
+* from
+* statusCode
+* status
+* statusDescription
+* timestamp
+
+There is a python test server included in the clickatell folder.
+To run this server, you require the endpoints pip package:
+```
+pip install endpoints
+```
+
+You can run the server using the following command:
+```
+ endpoints --dir=clickatell/ --prefix=controller --host=<hostname>:<port>
+```
+
+This server currently prints out to the server console. Replace the print function with your function name to consume the data.
+All data is returned in JSON.
