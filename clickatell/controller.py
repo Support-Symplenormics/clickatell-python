@@ -11,9 +11,9 @@ from endpoints import Controller
 class Default(Controller):
 
   def POST(self, **kwargs):
-    print kwargs
+    print kwargs #replace with the function that must consume the output
     return 'OK'
 
   def GET(self, **kwargs):
-    print kwargs
-    return 'OK'
+    print kwargs #replace with the function that must consume the output
+    return 'OK' 
