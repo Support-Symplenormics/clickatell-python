@@ -3,7 +3,7 @@ Clickatell Python Library
 
 You can see our other libraries and more documentation at the [Clickatell APIs and Libraries Project](http://clickatell.github.io/).
 
-The library supports version **2** of Python.
+This library supports version **2** of Python.
 
 ------------------------------------
 
@@ -12,7 +12,7 @@ This library allows easy access to connecting the [Clickatell's](http://www.clic
 1. Installation
 ------------------
 
-You can install this library via PIP as part of you requirements file.
+You can install this library via PIP as part of your requirements file.
 
 ```
 pip install clickatell-platform
