@@ -3,8 +3,8 @@ from setuptools import setup, find_packages
 setup(
     name="clickatell",
     version="2.0.0",
-    author="Stephen Leibbrandt",
-    author_email="stephen.leibbrandt@clickatell.com",
+    author="Chris Brand, Stephen Leibbrandt",
+    author_email="support@clickatell.com",
     keywords=["clickatell","sms"],
     packages=find_packages(),
     include_package_data=True,

@@ -3,6 +3,8 @@ Clickatell Python Library
 
 You can see our other libraries and more documentation at the [Clickatell APIs and Libraries Project](http://clickatell.github.io/).
 
+The library supports version **2** of Python.
+
 ------------------------------------
 
 This library allows easy access to connecting the [Clickatell's](http://www.clickatell.com) different messenging API's.
@@ -13,7 +15,7 @@ This library allows easy access to connecting the [Clickatell's](http://www.clic
 You can install this library via PIP as part of you requirements file.
 
 ```
-pip install clickatell
+pip install clickatell-platform
 ```
 
 [Clickatell Python PyPI](https://pypi.python.org/pypi?name=clickatell&version=0.0.1&:action=display)
@@ -31,14 +33,14 @@ from clickatell.http import Http
 clickatell = Http(apiKey)
 response = clickatell.sendMessage(['1111111111'], "My Message rest")
 
-print response #Returns the headers with all the messages
+print(response) #Returns the headers with all the messages
 
 for entry in response['messages']:
-    print entry #Returns all the message details per message
-    #print entry['apiMessageId']
-    #print entry['to']
-    #print entry['accepted']
-    #print entry['error']
+    print(entry) #Returns all the message details per message
+    #print(entry['apiMessageId'])
+    #print(entry['to'])
+    #print(entry['accepted'])
+    #print(entry['error'])
 ```
 
 ### REST API
@@ -52,11 +54,11 @@ response = clickatell.sendMessage(['1111111111'], "My Message rest")
 print response #Returns the headers with all the messages
 
 for entry in response['messages']:
-    print entry #Returns all the message details per message
-    #print entry['apiMessageId']
-    #print entry['to']
-    #print entry['accepted']
-    #print entry['error']
+    print(entry) #Returns all the message details per message
+    #print(entry['apiMessageId'])
+    #print(entry['to'])
+    #print(entry['accepted'])
+    #print(entry['error'])
 ```
 
 ### Sending to multiple numbers
