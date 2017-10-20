@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="clickatell",
+    name="clickatell-platform",
     version="2.0.0",
     author="Chris Brand, Stephen Leibbrandt",
     author_email="support@clickatell.com",
