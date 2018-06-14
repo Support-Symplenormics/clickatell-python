@@ -1,15 +1,13 @@
 Clickatell Python Library
 ================================
 
-You can see our other libraries and more documentation at the [Clickatell APIs and Libraries Project](http://clickatell.github.io/).
-
 This library supports version **2** of Python.
 
 ------------------------------------
 
 This library allows easy access to connecting the [Clickatell's](http://www.clickatell.com) different messenging API's.
 
-1. Installation
+Installation
 ------------------
 
 You can install this library via PIP as part of your requirements file.
@@ -20,7 +18,7 @@ pip install clickatell-platform
 
 [Clickatell Python PyPI](https://pypi.python.org/pypi?name=clickatell&version=0.0.1&:action=display)
 
-2. Usage
+Usage
 ------------------
 
 The library currently supports the `Http` and `Rest` protocols.
@@ -67,7 +65,7 @@ The `sendMessage` call `to` parameter can take an array of numbers. If you speci
 
 To send to multiple numbers, just pass a list of numbers like `clickatell.sendMessage([1111111111,2222222222], "Message")`
 
-3. Supported API calls
+Supported API calls
 ------------------
 
 The available calls are defined in the `clickatell.Transport` interface.
@@ -78,13 +76,13 @@ def sendMessage(self, to, message, extra={})
 
 ```
 
-4. Dealing with extra parameters in sendMessage
+Dealing with extra parameters in sendMessage
 --------------------------------------
 
 For usability purposes the `sendMessage` call focuses on the recipients and the content. In order to specify and of the additional parameters defined
 in the [Clickatell document](http://www.clickatell.com), you can use the `extra` parameter and pass them as a dictionary.
 
-5. Receiving and consuming the status callback
+Receiving and consuming the status callback
 --------------------------------------
 
 The following will be returned from the callback in two different sets:
