@@ -124,3 +124,23 @@ You can run the server using the following command:
 
 This server currently prints out to the server console. Replace the print function with your function name to consume the data.
 All data is returned in JSON.
+
+##Reference Links and More Info:
+
+Found a bug or missing a feature? Log it here and we will take a look.
+https://github.com/clickatell/clickatell-python/issues
+
+Register a new account to send sms's:
+https://www.clickatell.com/sign-up/
+
+Login to platform for API id, etc:
+https://portal.clickatell.com/#/login
+
+Request Parameters:
+https://www.clickatell.com/developers/api-documentation/rest-api-request-parameters/
+
+Send Message Info:
+https://www.clickatell.com/developers/api-documentation/rest-api-send-message/
+
+Error Messages:
+https://www.clickatell.com/developers/api-documentation/rest-api-error-message-descriptions/
