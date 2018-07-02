@@ -125,7 +125,7 @@ You can run the server using the following command:
 This server currently prints out to the server console. Replace the print function with your function name to consume the data.
 All data is returned in JSON.
 
-##Reference Links and More Info:
+## Reference Links and More Info:
 
 Found a bug or missing a feature? Log it here and we will take a look.
 https://github.com/clickatell/clickatell-python/issues
