@@ -1,7 +1,7 @@
 Clickatell Python Library
 ================================
 
-This library supports version **2.7** & **3.7** of Python.
+This library supports version **2.7** & **3.6** of Python.
 
 ------------------------------------
 
