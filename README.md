@@ -1,7 +1,7 @@
 Clickatell Python Library
 ================================
 
-This library supports version **2** of Python.
+This library supports version **2.7** & **3.7** of Python.
 
 ------------------------------------
 
@@ -16,7 +16,7 @@ You can install this library via PIP as part of your requirements file.
 pip install clickatell-platform
 ```
 
-[Clickatell Python PyPI](https://pypi.python.org/pypi?name=clickatell&version=0.0.1&:action=display)
+[Clickatell Python PyPI](https://pypi.python.org/pypi?name=clickatell-platform&version=2.0.1&:action=display)
 
 Usage
 ------------------
