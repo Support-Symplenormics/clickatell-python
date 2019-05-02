@@ -3,4 +3,5 @@ __pycache__
 /stage.py
 *.egg
 *.egg-info
-/dist/
+/dist/*.tar.gz
+/build

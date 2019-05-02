@@ -2,6 +2,7 @@ import httplib2
 import urllib
 import json
 import re
+import sys
 
 class Transport:
     """
@@ -57,7 +58,7 @@ class Transport:
         :return: The request response
         """
         http = httplib2.Http()
-        body = urllib.urlencode(data)
+        body = urllib.urlencode(data) if (sys.version_info[0] < 3) else urllib.parse.urlencode(data)
         url = 'https://' + self.endpoint + '/' + action
         url = (url + '?' + body) if (method == 'GET') else url
         resp, content = http.request(url, method, headers=headers, body=json.dumps(data))
